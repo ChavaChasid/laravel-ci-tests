@@ -41,7 +41,6 @@ jobs:
 
     - name: Install composer dependencies
       run: |
-        composer install --ignore-platform-reqs
         composer install -n --prefer-dist
 
     - name: Prepare Laravel Application
