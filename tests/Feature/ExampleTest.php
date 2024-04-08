@@ -1,8 +1,9 @@
 <?php
 
-it('returns a successful response', function () {
-    $user = $this->createAuthUser();
-    $response = $this->get('/');
 
+
+it('returns a successful response', function () {
+    $response = $this->get('/');
+    
     $response->assertStatus(200);
 });
