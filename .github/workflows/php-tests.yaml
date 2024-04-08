@@ -1,12 +1,11 @@
-name: 🧪 Run tests
+name: ✅ Run PHP tests
 on:
   push:
     branches: 
       - main
+      - dev
+      - feature/*
 
-# env:
-#   APP_KEY: null
-   
 jobs:
   tests:
     name: Run tests
