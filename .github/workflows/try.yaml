@@ -4,8 +4,8 @@ on:
     branches: 
       - main
 
-env:
-  APP_KEY: null
+# env:
+#   APP_KEY: null
    
 jobs:
   tests:
