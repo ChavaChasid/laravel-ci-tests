@@ -1,52 +1,40 @@
-name: try
-on:
-  # pull_request:
-  #   branches:
-  #     - main
-  workflow_dispatch:
-    branches:
-      - main
+name: 🧪 Run PHP tests
 
+on:
+  push:
+    branches: 
+      - main
+      - development
+      - feature/*
+    # paths: 
+    #   - users-management/**
+    
 jobs:
   tests:
+    name: Run tests
     runs-on: ubuntu-latest
+    # defaults:
+    #   run:
+    #     working-directory: ./users-management
 
-    # services:
-    #   mysql:
-    #     image: mysql:8.0
-    #     env:
-    #       MYSQL_ALLOW_EMPTY_PASSWORD: yes
-    #       MYSQL_DATABASE: test
-    #     ports:
-    #       - 3306:3306
-    #     options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    steps:    
+      - name: 📂 Checkout
+        uses: actions/checkout@v3
 
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 1
+      - name: 🐍 Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: pdo_pgsql
+          coverage: none
 
-    - name: Cache composer dependencies
-      uses: actions/cache@v2
-      with:
-        path: vendor
-        key: composer-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          composer-
+      - name: ⏬ Install dependencies
+        run: composer install -n --prefer-dist
 
-    - name: Install PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: 8.1
+      - name: 🐍 Prepare Laravel Application
+        run: |
+          cp .env.example .env
+          php artisan key:generate
 
-    - name: Install composer dependencies
-      run: |
-        composer install -n --prefer-dist
-
-    - name: Prepare Laravel Application
-      run: |
-        cp .env.ci .env
-        php artisan key:generate
-
-    - name: Run Test suite
-      run: php artisan test
+      - name: ✅ Run tests
+        run: php artisan test
