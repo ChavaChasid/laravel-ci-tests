@@ -1,20 +1,13 @@
-name: 🧪 try
+name: 🧪 Run tests
 on:
   push:
     branches: 
       - main
-      - development
-      - feature/*
-    # paths: 
-    #   - users-management/**
-    
+   
 jobs:
   tests:
     name: Run tests
     runs-on: ubuntu-latest
-    # defaults:
-    #   run:
-    #     working-directory: ./users-management
 
     steps:    
       - name: 📂 Checkout
@@ -27,13 +20,12 @@ jobs:
           extensions: pdo_pgsql
           coverage: none
 
-      - name: ⏬ Install dependencies
+      - name: ⏬ Run composer install
         run: composer install -n --prefer-dist
 
-      - name: 🐍 Prepare Laravel Application
-        run: |
-          ls
-          php artisan key:generate
+      # - name: 🐍 Prepare Laravel Application
+      #   run: |
+      #     php artisan key:generate
 
       - name: ✅ Run tests
         run: php artisan test
