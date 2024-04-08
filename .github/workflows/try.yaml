@@ -41,7 +41,7 @@ jobs:
 
     - name: Install composer dependencies
       run: |
-        omposer install -n --prefer-dist
+        composer install -n --prefer-dist
 
     - name: Prepare Laravel Application
       run: |
