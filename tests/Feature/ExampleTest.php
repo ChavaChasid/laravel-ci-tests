@@ -23,6 +23,7 @@ it('allows logged in users to access the main panel', function () {
     $admin = User::find(Auth::id());
     $this->actingAs($admin);
 
+    $this->withoutExceptionHandling();
     $response = $this->get('/');
 
     
