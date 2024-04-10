@@ -20,7 +20,11 @@ it('allows logged in users to access the main panel', function () {
     $user = User::factory()->create();
     $this->actingAs($user);
 
+    $admin = User::find(Auth::id());
+    $this->actingAs($admin);
+
     $response = $this->get('/');
+
     
     $response->assertStatus(200); 
 });
