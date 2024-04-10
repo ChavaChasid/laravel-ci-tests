@@ -1,5 +1,5 @@
 <?php
-use App\Models\User;
+// use App\Models\User;
 
 
 it('redirects unauthorized users to the login page', function () {
@@ -9,8 +9,8 @@ it('redirects unauthorized users to the login page', function () {
 });
 
 it('allows logged in users to access the main panel', function () {
-    $user = User::factory()->create();
-    $this->actingAs($user);
+    // $user = User::factory()->create();
+    // $this->actingAs($user);
     $this
         ->asUser()
         ->get('/')
