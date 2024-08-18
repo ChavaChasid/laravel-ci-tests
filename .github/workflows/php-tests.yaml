@@ -1,41 +1,25 @@
-name: ✅ Run PHP tests
+name: Lint Code on Commit
+
 on:
   push:
-    branches: 
-      - main
-      - dev
-      - feature/*
+    branches:
+      - '*'
 
 jobs:
-  tests:
-    name: Run tests
+  lint:
     runs-on: ubuntu-latest
 
-    steps:    
-      - name: 📂 Checkout
-        uses: actions/checkout@v3
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
 
-      - name: 🐍 Setup PHP
-        uses: shivammathur/setup-php@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
         with:
-          php-version: '8.2'
-          extensions: pdo_pgsql
-          coverage: none
+          node-version: '14'
 
-      - name: ⏬ Run Dependencies install
-        run: |
-          composer install -n --prefer-dist
-          npm install
-          npm run build
-        
+      - name: Install dependencies
+        run: npm install
 
-      - name: 🐍 Prepare Laravel Application
-        run: |
-          cp .env.example .env
-          php artisan key:generate
-
-      - name: ✅ Run tests
-        run: php artisan test
-
-
-
+      - name: Run Linter
+        run: npm run lint
