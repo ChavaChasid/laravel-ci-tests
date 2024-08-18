@@ -2,6 +2,8 @@ name: Lint Code on Commit
 
 on:
   push:
+    branches:
+      - '*'
 
 jobs:
   lint:
